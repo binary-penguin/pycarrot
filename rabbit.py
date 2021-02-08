@@ -18,8 +18,8 @@ class Layout(tk.Tk):
 
         self.__title = "rabbit app"
         self.__icon = "assets//rabbit-icon.ico"
-        self.__width = int(self.winfo_screenwidth())
-        self.__height = int(self.winfo_screenheight())
+        self.__width = 200#int(self.winfo_screenwidth())
+        self.__height = 100#int(self.winfo_screenheight())
         self.__close_message = "Kill rabbit?"
         
         self.geometry(f"{self.__width}x{self.__height}")
@@ -62,24 +62,25 @@ class Layout(tk.Tk):
 
 
 class Rabbit(tk.Canvas):
-    def __init__(self, meadow):
+    def __init__(self, layout):
 
-        self.__meadow = meadow
+        self.__layout = layout
         self.__bkg = "assets//meadow-bkg.png"
-        self.__width = 1920
-        self.__height = 1080
+        self.__width = 200
+        self.__height = 100
         self.__border_width = 1
 
-        super().__init__(self.__meadow, width = self.__width, height = self.__height)
+        super().__init__(self.__layout, width = self.__width, height = self.__height)
 
-        self.__smallFont = tkFont.Font(family="Open Sans", size=8)
-        self.__mediumFont = tkFont.Font(family="Open Sans", size=12)
-        self.__bigFont = tkFont.Font(family="Open Sans Semibold", size=25)
+        self.smallFont = tkFont.Font(family="Open Sans", size=8)
+        self.mediumFont = tkFont.Font(family="Open Sans", size=12)
+        self.bigFont = tkFont.Font(family="Open Sans Semibold", size=25)
 
         self.bkg = Image.open(self.__bkg)
         self.bkg = self.bkg.resize((self.__width, self.__height))
         self.img = ImageTk.PhotoImage(self.bkg)
         self.create_image(0, 0, anchor = tk.NW, image=self.img)
+        
 
     def set_bkg(self, bkg):
         self.__bkg = bkg
@@ -92,21 +93,72 @@ class Rabbit(tk.Canvas):
     
     def get_border_width(self):
         return self.__border_width
+    
+    def add_widget(self, widget, x, y):
+        self.create_window(x, y, anchor=tk.CENTER, window=widget)
+        return widget
+    
+    def add_styled_button(self, text, anchor, bcolor, fcolor, w, h, bd, style, command, x, y):
+        h = self.add_widget(tk.Button(self, 
+                                text = text, 
+                                anchor = anchor,
+                                bg = bcolor,
+                                foreground = fcolor,
+                                width = w,
+                                height = h,
+                                bd = bd,
+                                font = style,
+                                command = command), x, y)
+
+    def add_text(self, content, anchor, style, fcolor, x, y):
+        self.create_text(x,y, fill=fcolor,
+                                    text=content,
+                                    justify = anchor,
+                                    font = style)
+
+    #def add_text_box(self, )
 
 
+    def go_page1(self, new_page):
+        new_page.spawn_rabbit()
+        self.destroy()
+        
     def spawn_rabbit(self):
         self.place(x = 0, y = 0)
 
 Root = Layout()
 
 StartPage = Rabbit(Root)
-StartPage.spawn_rabbit()
+SecondPage = Rabbit(Root)
+
+StartPage.add_styled_button(
+                                    text="p1", 
+                                    anchor = tk.CENTER,
+                                    bcolor = "#FE8C33",
+                                    fcolor = "#B4301A",
+                                    w = "99",
+                                    h = "0",
+                                    bd = "3",
+                                    style = StartPage.smallFont,
+                                    command = lambda : StartPage.go_page1(SecondPage), x = 25, y = 25)
+
+
+#StartPage.spawn_rabbit()
+SecondPage.add_styled_button(
+                                    text="p2", 
+                                    anchor = tk.CENTER,
+                                    bcolor = "#59c6ee",
+                                    fcolor = "#B4301A",
+                                    w = "99",
+                                    h = "0",
+                                    bd = "3",
+                                    style = SecondPage.smallFont,
+                                    command = lambda : SecondPage.go_page1(StartPage), x = 2, y = 25)
+#SecondPage.spawn_rabbit()
 
 Root.put_it_all_together()
 
-
 '''
-
 
          # Entrar Button
         self.addWidget(tk.Button(self, 
