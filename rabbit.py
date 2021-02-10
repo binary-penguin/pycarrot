@@ -80,16 +80,19 @@ class Rabbit(tk.Canvas):
         self.bkg = self.bkg.resize((self.__width, self.__height))
         self.img = ImageTk.PhotoImage(self.bkg)
         self.create_image(0, 0, anchor = tk.NW, image=self.img)
+        self.spawn_rabbit()
         
 
     def set_bkg(self, bkg):
         self.__bkg = bkg
+        self.spawn_rabbit()
     
     def get_bkg(self):
         return self.__bkg
 
     def set_border_width(self, border_width):
         self.__border_width = border_width
+        self.spawn_rabbit()
     
     def get_border_width(self):
         return self.__border_width
@@ -109,52 +112,57 @@ class Rabbit(tk.Canvas):
                                 bd = bd,
                                 font = style,
                                 command = command), x, y)
+        
+        self.spawn_rabbit()
 
     def add_text(self, content, anchor, style, fcolor, x, y):
         self.create_text(x,y, fill=fcolor,
                                     text=content,
                                     justify = anchor,
                                     font = style)
-
+        self.spawn_rabbit()
     #def add_text_box(self, )
 
 
-    def go_page1(self, new_page):
+    def go_page(self, new_page):
+        self.pack_forget()
         new_page.spawn_rabbit()
-        self.destroy()
         
+
     def spawn_rabbit(self):
-        self.place(x = 0, y = 0)
+        self.pack()
 
 Root = Layout()
 
 StartPage = Rabbit(Root)
 SecondPage = Rabbit(Root)
 
+StartPage.set_bkg("assets//test-bkg.png")
+
+
 StartPage.add_styled_button(
                                     text="p1", 
                                     anchor = tk.CENTER,
                                     bcolor = "#FE8C33",
                                     fcolor = "#B4301A",
-                                    w = "99",
-                                    h = "0",
-                                    bd = "3",
+                                    w = "20",
+                                    h = "1",
+                                    bd = "1",
                                     style = StartPage.smallFont,
-                                    command = lambda : StartPage.go_page1(SecondPage), x = 25, y = 25)
+                                    command = lambda : StartPage.go_page(SecondPage), 
+                                    x = 25, y = 25)
 
-
-#StartPage.spawn_rabbit()
 SecondPage.add_styled_button(
                                     text="p2", 
                                     anchor = tk.CENTER,
                                     bcolor = "#59c6ee",
                                     fcolor = "#B4301A",
-                                    w = "99",
-                                    h = "0",
-                                    bd = "3",
+                                    w = "20",
+                                    h = "1",
+                                    bd = "1",
                                     style = SecondPage.smallFont,
-                                    command = lambda : SecondPage.go_page1(StartPage), x = 2, y = 25)
-#SecondPage.spawn_rabbit()
+                                    command = lambda : SecondPage.go_page(StartPage), 
+                                    x = 2, y = 25)
 
 Root.put_it_all_together()
 
