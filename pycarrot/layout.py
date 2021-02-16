@@ -1,26 +1,22 @@
 import tkinter as tk
 import tkinter.font as tkFont
+import tkinter.ttk as ttk
 import tkinter.scrolledtext as ts 
-from tkinter import messagebox
+import tkinter.messagebox as mb
 import os
-import time as t
-import subprocess as sb
-import simpleaudio as sa
-from PIL import Image, ImageTk # NON-STANDARD Allows the use of different image formats
-import vlc # NON-STANDARD
 
-# SINGLETON DESIGN PATTERN
+
 
 class Layout(tk.Tk):
     def __init__(self):
 
         super().__init__()
-
-        self.__title = "rabbit app"
-        self.__icon = "assets//rabbit-icon.ico"
+        print(os.getcwd)
+        self.__title = "carrot app"
+        self.__icon = "./carrot-icon.ico"
         self.__width = int(self.winfo_screenwidth())
         self.__height = int(self.winfo_screenheight())
-        self.__close_message = "Kill rabbit?"
+        self.__close_message = "Kill carrot?"
         
         self.geometry(f"{self.__width}x{self.__height}")
         self.title(self.__title)
@@ -32,7 +28,7 @@ class Layout(tk.Tk):
 
     def set_title(self, title):
         self.__title = title
-        self.TITLE(self.__title)
+        self.title(self.__title)
 
     def get_title(self):
         return self.__title
@@ -52,35 +48,8 @@ class Layout(tk.Tk):
         return self.__width, self.__height
 
     def close_layout(self):
-        if messagebox.askokcancel(message=self.__close_message, title=self.__title):
+        if mb.askokcancel(message=self.__close_message, title=self.__title):
             self.destroy()
 
-    def wrap_up(self):
+    def put_it_all_together(self):
         self.mainloop()
-#
-
-Root = Layout()
-Root.wrap_up()
-
-
-
-
-''''
-
-
-        # Declarar protocolos (links entre ventana events y script) parte de Tk()
-        
-       
-
-
-
-        # Protocolos de ventana
-       
-
-        # Crear Frame dentro de Tk
-        HomePage(self, "assets\\home-bkg.png")
-        
-    def set_root_icon()
- 
-            
-'''

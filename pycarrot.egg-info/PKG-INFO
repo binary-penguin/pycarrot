@@ -1,0 +1,17 @@
+Metadata-Version: 1.1
+Name: pycarrot
+Version: 0.7.7
+Summary: Easy Desktop GUIs
+Home-page: UNKNOWN
+Author: Jorge Flores
+Author-email: <jafp07@gmail.com>
+License: UNKNOWN
+Description: The easiest way to create Desktop GUIs with Python
+Keywords: python,first package
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Education
+Classifier: Programming Language :: Python :: 2
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: MacOS :: MacOS X
+Classifier: Operating System :: Microsoft :: Windows
